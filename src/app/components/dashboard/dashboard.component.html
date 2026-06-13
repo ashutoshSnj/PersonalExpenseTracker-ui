@@ -1,0 +1,210 @@
+    @if(isUser){
+
+<div class="summary-header">
+
+  <div class="summary-section">
+
+    <div class="circle income">
+        <span class="title">Income</span>
+        <h2>₹{{summary.totalIncome}}</h2>
+    </div>
+
+    <div class="circle expense">
+        <span class="title">Expense</span>
+        <h2>{{summary.totalExpense}}</h2>
+    </div>
+
+    <div class="circle balance">
+        <span class="title">Balance</span>
+        <h2>{{summary.balance}}</h2>
+    </div>
+
+    <div class="circle transaction">
+        <span class="title">Transactions</span>
+        <h2>{{summary.transactionCount}}</h2>
+    </div>
+
+  </div>
+
+ <button
+pButton
+class="export-btn"
+(click)="exportDashboardReport()">
+
+<i class="pi pi-download"></i>
+Export CSV
+
+</button>
+</div>
+
+<div class="chart-grid">
+
+  <p-card header="Category Wise Analysis" class="pie-card">
+    <p-chart
+      *ngIf="pieData"
+      type="pie"
+      [data]="pieData"
+      [options]="pieOptions"
+      height="320">
+    </p-chart>
+  </p-card>
+
+  <p-card header="Top Spending Categories" class="bar-card">
+    <p-chart
+      *ngIf="barData"
+      type="bar"
+      [data]="barData"
+      [options]="barOptions"
+      height="320">
+    </p-chart>
+  </p-card>
+
+</div>
+
+
+<div class="bottom-grid">
+
+@if(!showMonthly){
+
+<p-card header="Daily Income vs Expense (7 Days)" class="daily-card">
+
+  <p-chart
+      *ngIf="dailyLineData"
+      type="line"
+      [data]="dailyLineData"
+      [options]="lineOptions"
+      height="350">
+  </p-chart>
+
+  <div class="day-nav">
+
+    <button class="nav-btn prev"
+            (click)="previous7Days()">
+      ← Previous
+    </button>
+
+    <button class="nav-btn next"
+            (click)="next7Days()">
+      Next →
+    </button>
+
+   <button class="nav-btn monthly"
+        [class.active]="!showMonthly"
+        (click)="toggleMonthlyView()">
+  See Monthly
+</button>
+  </div>
+
+</p-card>
+
+}
+
+
+
+@if(showMonthly){
+<p-card header="Monthly Income vs Expense" class="line-card">
+
+  <p-chart
+    *ngIf="lineData"
+    type="line"
+    [data]="lineData"
+    [options]="lineOptions"
+    height="320">
+  </p-chart>
+
+  <div class="day-nav">
+    <button class="nav-btn monthly"
+            [class.active]="showMonthly"
+            (click)="toggleMonthlyView()">
+       See Daily
+    </button>
+  </div>
+
+</p-card>
+
+}
+
+<app-smartinsights></app-smartinsights>
+
+</div>
+
+}
+
+@if(isAdmin){
+
+<div class="summary-header">
+
+  <div class="summary-section">
+
+    <div class="circle income">
+        <span class="title">System Income</span>
+        <h2>₹{{adminSummary.totalIncome}}</h2>
+    </div>
+
+    <div class="circle expense">
+        <span class="title">System Expense</span>
+        <h2>{{adminSummary.totalExpense}}</h2>
+    </div>
+
+    <div class="circle balance">
+        <span class="title">Total Users</span>
+        <h2>{{adminSummary.totalUsers}}</h2>
+    </div>
+
+    <div class="circle transaction">
+        <span class="title">Total Transactions</span>
+        <h2>{{adminSummary.totalTransactions}}</h2>
+    </div>
+
+    <div class="circle income">
+        <span class="title">Total Categories</span>
+        <h2>{{adminSummary.totalCategories}}</h2>
+    </div>
+
+  </div>
+</div>
+
+
+<div class="chart-grid">
+
+  <p-card header="Category Wise Analysis" class="pie-card">
+    <p-chart
+      *ngIf="adminPieData"
+      type="pie"
+      [data]="adminPieData"
+      [options]="pieOptions"
+      height="320">
+    </p-chart>
+  </p-card>
+
+  <p-card header="Top Spending Categories" class="bar-card">
+    <p-chart
+      *ngIf="adminBarData"
+      type="bar"
+      [data]="adminBarData"
+      [options]="barOptions"
+      height="320">
+    </p-chart>
+  </p-card>
+
+</div>
+
+<div class="bottom-grid">
+
+<p-card header="Monthly Income vs Expense" class="line-card">
+
+  <p-chart
+    *ngIf="adminLineData"
+    type="line"
+    [data]="adminLineData"
+    [options]="lineOptions"
+    height="320">
+  </p-chart>
+
+</p-card>
+
+<app-smartinsights></app-smartinsights>
+
+</div>
+
+}

@@ -1,0 +1,109 @@
+
+.expense-container{
+  display:flex;
+  gap:20px;
+  padding:20px;
+}
+
+.left-section{
+  flex:2;
+}
+
+.right-section{
+  flex:1;
+}
+
+.field{
+  margin-bottom:15px;
+  display:flex;
+  flex-direction:column;
+}
+
+.w-full{
+  width:100%;
+}
+
+.error-text{
+  color:#e53935;
+  font-size:13px;
+  margin-top:4px;
+}
+
+input.ng-invalid.ng-touched{
+  border:1px solid #e53935;
+}
+
+.form-card{
+  background:linear-gradient(135deg,#f8fafc,#eef2ff);
+  border-radius:14px;
+  box-shadow:0 10px 28px rgba(0,0,0,0.08);
+}
+
+:host ::ng-deep .form-card .p-card{
+  background:linear-gradient(135deg,#f1f5f9,#dbeafe)!important;
+  box-shadow:0 12px 30px rgba(0,0,0,0.12)!important;
+  border-radius:14px!important;
+}
+
+:host ::ng-deep .form-card .p-card-title{
+  text-align:center!important;
+  width:100%;
+}
+
+
+:host ::ng-deep .table-card .p-card{
+  background:linear-gradient(135deg,#f8fafc,#eef2ff)!important;
+  border-radius:14px!important;
+  box-shadow:0 10px 25px rgba(0,0,0,0.06)!important;
+  border:1px solid #e2e8f0!important;
+}
+
+
+.table-header-row{
+  position:relative;
+  width:100%;
+  padding:12px 10px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.table-title{
+  font-size:18px;
+  font-weight:600;
+  color:#1e293b;
+  text-align:center;
+}
+
+
+.export-btn{
+  position:absolute;
+  right:10px;
+  top:50%;
+  transform:translateY(-50%);
+  background:linear-gradient(135deg,#3b82f6,#2563eb);
+  border:none;
+  color:white;
+  font-weight:500;
+  border-radius:8px;
+  padding:6px 14px;
+  box-shadow:0 4px 10px rgba(37,99,235,0.35);
+  transition:all .25s ease;
+}
+
+.export-btn:hover{
+  background:linear-gradient(135deg,#1d4ed8,#2563eb);
+  transform:translateY(-50%) scale(1.05);
+  box-shadow:0 8px 18px rgba(37,99,235,0.5);
+}
+
+
+:host ::ng-deep .p-datatable thead th{
+  background:#f1f5f9!important;
+  color:#1e293b!important;
+  font-weight:600;
+}
+
+:host ::ng-deep .p-datatable tbody tr:hover{
+  background:#f8fafc!important;
+}

@@ -1,0 +1,55 @@
+<nav class="navbar">
+
+  <div class="logo">
+    <a routerLink="/dashboard">Expense Tracker</a>
+  </div>
+
+  <ul class="nav-links">
+<li>
+        <a routerLink="/dashboardf" routerLinkActive="active">
+          Dashboard
+        </a>
+      </li>
+       @if (isAdmin()) {
+     
+      <li>
+        <a routerLink="/admin/users" routerLinkActive="active">
+          Users
+        </a>
+      </li>
+
+      <li>
+        <a routerLink="/admin/categories" routerLinkActive="active">
+          Categories
+        </a>
+      </li>
+    }
+
+
+    @if (isUser()) {
+
+      <li>
+        <a routerLink="/expense" routerLinkActive="active">
+          Expense
+        </a>
+      </li>
+
+      <li>
+        <a routerLink="/income" routerLinkActive="active">
+          Income
+        </a>
+      </li>
+    }
+   
+    <li>
+      <button pButton
+              label="Logout"
+              icon="pi pi-sign-out"
+              class="p-button-sm p-button-danger p-button-rounded"
+              (click)="logout()">
+      </button>
+    </li>
+
+  </ul>
+
+</nav>

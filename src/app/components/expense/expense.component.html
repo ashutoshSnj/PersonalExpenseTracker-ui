@@ -1,0 +1,147 @@
+
+<div class="expense-container">
+
+  
+  <div class="left-section">
+<p-card class="table-card">
+<ng-template pTemplate="header">
+  <div class="table-header-row">
+
+    <button 
+      pButton
+      type="button"
+      label="Export CSV"
+      icon="pi pi-download"
+      class="export-btn p-button-sm"
+      (click)="exportExpenses()">
+    </button>
+
+    <span class="table-title">Expense List</span>
+
+  </div>
+</ng-template>
+    
+     <p-table 
+  [value]="expenses"
+  styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+   [paginator]="true"
+        [rows]="5"
+        [rowsPerPageOptions]="[5,10,50,100]">
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Category</th>
+      <th>Amount</th>
+      <th>Date</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-exp>
+    <tr>
+      <td>{{ exp.categoryName }}</td>
+      <td>{{ exp.amount | currency:'INR' }}</td>
+      <td>{{ exp.date }}</td>
+      <td>{{ exp.description }}</td>
+      <td>
+        <button 
+          pButton 
+          icon="pi pi-pencil"
+          class="p-button-text p-button-warning"
+          (click)="onEdit(exp)">
+        </button>
+
+        <button 
+          pButton 
+          icon="pi pi-trash"
+          class="p-button-text p-button-danger"
+          (click)="confirmDelete(exp.id)"
+          >
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+
+</p-table>
+
+
+    </p-card>
+  </div>
+
+
+  <div class="right-section">
+    <p-card header="Where Did the Money Go? 💸" class="form-card">
+
+      <form [formGroup]="expenseForm">
+
+        <div class="field">
+  <label>Category</label>
+ <p-dropdown
+    [options]="category"
+    optionLabel="name"
+    optionValue="name"
+    formControlName="categoryName"
+    placeholder="Select Category">
+</p-dropdown>
+</div>
+
+@if (expenseForm.get('categoryName')?.touched &&
+     expenseForm.get('categoryName')?.invalid) {
+
+  <small class="error-text">
+    Category is required
+  </small>
+}
+        <div class="field">
+          <label>Amount</label>
+          <input pInputText type="number" formControlName="amount" />
+        </div>
+
+         @if (expenseForm.get('amount')?.touched &&
+       expenseForm.get('amount')?.hasError('required')){
+
+    <small class="error-text">
+      Amount is required
+    </small>
+  }
+
+
+        <div class="field">
+          <label>Description</label>
+          <input pInputText type="text" formControlName="description" />
+        </div>
+
+        <div class="field">
+          <label>Date</label>
+          <input pInputText type="date" formControlName="date" />
+        </div>
+@if(isEditMode==false){
+        <button pButton 
+                type="submit" 
+                label="Save Expense" 
+                class="p-button-success w-full"
+                [disabled]="expenseForm.invalid"
+                (click)="onSubmit()">
+        </button>
+      }
+      @if(isEditMode==true){
+        <button pButton 
+                type="submit" 
+                label="Update Expense" 
+                class="p-button-primary w-full"
+                [disabled]="expenseForm.invalid"
+                (click)="updateExpense()">
+        </button>
+      }
+
+
+      </form>
+
+    </p-card>
+  </div>
+ 
+</div>
+<div>
+</div>
+

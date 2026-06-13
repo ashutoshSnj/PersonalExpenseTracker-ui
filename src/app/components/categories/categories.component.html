@@ -1,0 +1,138 @@
+<div class="category-container">
+  <div class="form-wrapper">
+
+    <p-card 
+      class="category-form-card"
+      [ngClass]="{'update-mode': isEditMode}">
+
+   
+      <ng-template pTemplate="header">
+        <div class="card-title">
+          {{ isEditMode ? 'Update Category' : 'Add Category' }}
+        </div>
+      </ng-template>
+
+      <form [formGroup]="categoryForm">
+
+        <div class="field">
+          <label>Category Name</label>
+          <input 
+            pInputText 
+            type="text" 
+            formControlName="name"
+            placeholder="Enter category name"
+            class="input-small"
+          />
+        </div>
+
+       @if (categoryForm.get('name')?.touched && categoryForm.get('name')?.errors) {
+
+    @if (categoryForm.get('name')?.errors?.['required']) {
+      <small class="error-text">
+        Category name is required.
+      </small>
+    }
+
+    @if (categoryForm.get('name')?.errors?.['pattern']) {
+      <small class="error-text">
+        Only alphabets are allowed.
+      </small>
+    }
+
+  }
+
+        <div class="button-group">
+
+          @if(!isEditMode){
+            <button 
+              pButton 
+              type="button"
+              label="Add"
+              icon="pi pi-plus"
+              class="navy-btn"
+              [disabled]="categoryForm.invalid"
+              (click)="onSubmit()">
+            </button>
+          }
+
+          @if(isEditMode){
+            <button 
+              pButton 
+              type="button"
+              label="Update"
+              icon="pi pi-refresh"
+              class="navy-btn"
+              [disabled]="categoryForm.invalid"
+              (click)="updateCategory()">
+            </button>
+
+            <button 
+              pButton 
+              type="button"
+              label="Cancel"
+              icon="pi pi-times"
+              class="cancel-btn"
+              (click)="categoryForm.reset(); isEditMode=false;">
+            </button>
+          }
+
+        </div>
+
+      </form>
+
+    </p-card>
+
+  </div>
+
+
+
+  <p-card class="category-table-card">
+
+  
+    <ng-template pTemplate="header">
+      <div class="table-title">
+        Category List
+      </div>
+    </ng-template>
+
+    <p-table 
+      [value]="categories"
+      [paginator]="true"
+      [rows]="5"
+      stripedRows="true">
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th>ID</th>
+          <th>Category Name</th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-cat>
+        <tr>
+          <td>{{ cat.id }}</td>
+          <td>{{ cat.name }}</td>
+          <td>
+            <button 
+              pButton 
+              icon="pi pi-pencil"
+              class="p-button-text p-button-warning"
+              (click)="onEdit(cat)">
+            </button>
+
+            <button 
+              pButton 
+              icon="pi pi-trash"
+              class="p-button-text p-button-danger"
+              (click)="confirmDelete(cat.id)">
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+
+    </p-table>
+
+  </p-card>
+
+</div>

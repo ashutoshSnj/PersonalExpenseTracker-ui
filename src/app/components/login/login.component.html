@@ -1,0 +1,76 @@
+<p-toast></p-toast>
+
+<div class="login-wrapper">
+
+
+  <div class="login-left">
+    <div class="left-content">
+      <h1>Welcome Back 👋</h1>
+      <p>Login to manage your expenses and track insights easily.</p>
+    </div>
+  </div>
+  <div class="login-right">
+    <p-card class="login-card">
+      <h2 class="title">Sign In</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+        <div class="field">
+
+          <p-floatlabel>
+            <input
+              pInputText
+              id="username"
+              formControlName="username"
+              class="w-full"
+            />
+            <label for="username">Username</label>
+          </p-floatlabel>
+
+          @if (loginForm.get('username')?.touched &&
+               loginForm.get('username')?.errors?.['required']) {
+            <small class="p-error">
+              Username is required
+            </small>
+          }
+
+        </div>
+
+     
+        <div class="field">
+
+        <p-floatlabel>
+  <input
+   pInputText
+  inputId="password"
+  formControlName="password"
+   class="w-full"
+            />
+    <label for="password">Password</label>
+  </p-floatlabel>
+
+  @if (loginForm.get('password')?.touched &&
+       loginForm.get('password')?.errors?.['required']) {
+    <small class="p-error">
+      Password is required
+    </small>
+  }
+
+        </div>
+
+        <button
+          pButton
+          type="submit"
+          label="Login"
+          class="w-full login-btn"
+          [disabled]="loginForm.invalid">
+        </button>
+      </form>
+<div class="register-section">
+  <span>Don't have an account?</span>
+  <a routerLink="/register">Register</a>
+</div>
+    </p-card>
+
+  </div>
+
+</div>

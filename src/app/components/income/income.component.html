@@ -1,0 +1,138 @@
+<p-toast></p-toast>
+
+
+<div class="income-container">
+
+
+<div class="summary-section">
+
+  <p-card [ngClass]="getTotalIncomeClass()" class="summary-card">
+    <h3>Total Income</h3>
+    <h2>₹ {{ totalIncome }}</h2>
+  </p-card>
+
+  <p-card [ngClass]="getMonthlyIncomeClass()" class="summary-card">
+    <h3>This Month</h3>
+    <h2>₹ {{ monthlyIncome }}</h2>
+  </p-card>
+
+  <p-card [ngClass]="getSourcesClass()" class="summary-card">
+    <h3>Total Sources</h3>
+    <h2>{{ incomeSources }}</h2>
+  </p-card>
+
+</div>
+
+
+  <div class="content-section">
+
+ 
+    <div class="table-wrapper">
+      <p-card class="table-card">
+
+  <ng-template pTemplate="header">
+  <div class="table-header-row">
+
+    <span class="table-title">Income Records 💰</span>
+
+    <button
+      pButton
+      type="button"
+      label="Export CSV"
+      icon="pi pi-download"
+      class="export-btn p-button-sm"
+      (click)="exportIncomes()">
+    </button>
+
+  </div>
+</ng-template>
+      <p-table 
+  [value]="incomes"
+  styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines"
+   [paginator]="true"
+        [rows]="5"
+        [rowsPerPageOptions]="[5,10,50,100]">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Source</th>
+              <th>Amount</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-inc>
+            <tr>
+              <td>{{ inc.source }}</td>
+              <td>{{ inc.amount | currency:'INR' }}</td>
+              <td>{{ inc.date }}</td>
+              <td>
+                <button pButton icon="pi pi-pencil"
+                        class="p-button-text p-button-warning"
+                        (click)="onEdit(inc)">
+                </button>
+
+                <button pButton icon="pi pi-trash"
+                        class="p-button-text p-button-danger"
+                        (click)="confirmDelete(inc.id)">
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+
+        </p-table>
+      </p-card>
+    </div>
+
+
+ 
+    <div class="form-wrapper">
+      <p-card 
+  [header]="isEditMode ? 'Update Income ✏️' : 'Add Income ➕'" 
+  class="form-card">
+
+        <form [formGroup]="incomeForm">
+
+          <div class="field">
+            <label>Income Source</label>
+            <input pInputText type="text" formControlName="source" />
+          </div>
+
+          <div class="field">
+            <label>Amount</label>
+            <input pInputText type="number" formControlName="amount" />
+          </div>
+
+          <div class="field">
+            <label>Date</label>
+            <input pInputText type="date" formControlName="date" />
+          </div>
+
+          @if(isEditMode == false){
+            <button pButton
+                    type="button"
+                    label="Save Income"
+                  class="p-button-success centered-btn"
+                    [disabled]="incomeForm.invalid"
+                    (click)="createIncome()">
+            </button>
+          }
+
+          @if(isEditMode == true){
+            <button pButton
+                    type="button"
+                    label="Update Income"
+                  class="p-button-primary centered-btn"
+                    [disabled]="incomeForm.invalid"
+                    (click)="updateIncome()">
+            </button>
+          }
+
+        </form>
+
+      </p-card>
+    </div>
+
+  </div>
+
+</div>

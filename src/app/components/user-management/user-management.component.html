@@ -1,0 +1,187 @@
+<p-toast></p-toast>
+
+
+<div class="page-wrapper">
+
+
+  <div class="top-bar">
+    <div class="search-box">
+      <input pInputText
+             type="text"
+             placeholder="Search by ID"
+             [(ngModel)]="searchId" />
+
+    @if (searchId && searchId.match('^[0-9]+$')) {
+  <button pButton
+          icon="pi pi-search"
+          (click)="searchUser()">
+  </button>
+}
+
+     
+    </div>
+  </div>
+
+  
+  <div class="content-layout">
+
+    
+    <div class="table-section">
+
+ <p-card>
+<ng-template pTemplate="header">
+  <div class="table-header-row">
+
+    <span class="table-title">User List</span>
+
+    <button
+      pButton
+      type="button"
+      label="Export CSV"
+      icon="pi pi-download"
+      class="export-btn p-button-sm"
+      (click)="exportUsers()">
+    </button>
+
+  </div>
+</ng-template>
+
+        <p-table [value]="users"
+        [paginator]="true"
+        [rows]="5"
+        [rowsPerPageOptions]="[5,10,50,100]">
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th>ID</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Actions</th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-user>
+            <tr>
+              <td>{{ user.id }}</td>
+              <td>{{ user.username }}</td>
+              <td>{{ user.email }}</td>
+
+              <td>
+                <button pButton
+                        icon="pi pi-eye"
+                        class="p-button-text p-button-info"
+                        (click)="viewUser(user)">
+                </button>
+
+                <button pButton
+                        icon="pi pi-pencil"
+                        class="p-button-text p-button-warning"
+                        (click)="onEdit(user)">
+                </button>
+
+              <button pButton
+        icon="pi pi-trash"
+        class="p-button-text p-button-danger"
+        [disabled]="user.roles.includes('ADMIN')"
+        (click)="confirmDelete(user.id)">
+</button>
+              </td>
+            </tr>
+          </ng-template>
+
+        </p-table>
+
+      </p-card>
+
+    </div>
+
+
+    
+    
+
+    <div class="form-section">
+
+  <p-card header="Update User">
+
+    <form [formGroup]="userForm">
+
+     <div class="id-load-row">
+      <div class="id-field">
+        <label>User ID</label>
+        <input pInputText type="number" formControlName="id" />
+      </div>
+
+    
+     <button pButton
+        type="button"
+        label="Load User"
+        class="load-btn p-button-secondary w-full"
+        (click)="loadUserForEdit()">
+</button>
+     </div>
+
+      @if (isEditMode == true) {
+
+      
+        <div class="field">
+          <label>Email</label>
+          <input pInputText formControlName="email" />
+        </div>
+
+        <div class="field">
+          <label>Role</label>
+      <p-dropdown
+  [options]="roleOptions"
+  formControlName="roles"
+  optionLabel="label"
+  optionValue="value"
+  placeholder="Select Role">
+</p-dropdown>
+        </div>
+
+      
+        <button pButton
+                type="button"
+                label="Update User"
+                class="p-button-primary w-full"
+                [disabled]="userForm.invalid"
+                (click)="updateUser()">
+        </button>
+
+      }
+
+    </form>
+
+  </p-card>
+
+</div>   
+    
+
+  </div>
+
+</div>
+
+<p-dialog
+  header="User Details"
+  [(visible)]="viewDialog"
+  [modal]="true"
+  [style]="{ width: '400px' }">
+
+  @if (selectedUser) {
+
+    <div class="details-box">
+      <p><strong>ID:</strong> {{ selectedUser.id }}</p>
+      <p><strong>Username:</strong> {{ selectedUser.username }}</p>
+      <p><strong>Email:</strong> {{ selectedUser.email }}</p>
+      <p><strong>Created:</strong> {{ selectedUser.createdAt | date:'medium' }}</p>
+
+      <div class="role-section">
+        @for (role of selectedUser.roles; track role) {
+          <p-tag [value]="role"></p-tag>
+        }
+      </div>
+    </div>
+
+  }
+
+</p-dialog>

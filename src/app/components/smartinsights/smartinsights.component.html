@@ -1,0 +1,39 @@
+<div class="insight-wrapper">
+
+  <p-card header="Smart Insights & Alerts" class="insight-card">
+
+    <div *ngIf="suggestions.length > 0; else noData">
+
+      <div *ngFor="let s of suggestions" class="insight-item">
+
+        <!-- ALERT -->
+        <div *ngIf="s.type === 'ALERT'" class="alert-box">
+          <span class="icon">⚠</span>
+          <span class="text">{{ s.message }}</span>
+        </div>
+
+        <!-- INSIGHT -->
+        <div *ngIf="s.type === 'INSIGHT'" class="insight-box">
+          <span class="icon">💡</span>
+          <span class="text">{{ s.message }}</span>
+        </div>
+
+        <!-- INFO -->
+        <div *ngIf="s.type === 'INFO'" class="info-box">
+          <span class="icon">ℹ</span>
+          <span class="text">{{ s.message }}</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <ng-template #noData>
+      <div class="no-insight">
+        No insights available
+      </div>
+    </ng-template>
+
+  </p-card>
+
+</div>

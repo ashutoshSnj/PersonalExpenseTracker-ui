@@ -1,0 +1,116 @@
+
+.login-wrapper {
+  display: flex;
+  height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.login-left {
+  flex: 1;
+  background: linear-gradient(135deg, #2563eb, #1e3a8a);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.left-content {
+  text-align: center;
+  max-width: 400px;
+}
+
+.left-content h1 {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.left-content p {
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+.login-right {
+  flex: 1;
+  background: linear-gradient(135deg, #e2e8f0, #f8fafc);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+:host ::ng-deep .login-card .p-card {
+  width: 380px;
+  padding: 30px 25px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 14px 34px rgba(37, 99, 235, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  transition: all 0.35s ease; 
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.field {
+  margin-bottom: 22px;
+}
+
+.field p-floatlabel {
+  display: block;
+  width: 100%;
+}
+
+.field .p-inputtext {
+  width: 100% !important;
+  height: 45px;
+}
+
+.login-btn {
+  margin-top: 10px;
+  height: 45px;
+  font-size: 16px;
+  width: 100%;
+}
+
+
+.register-section {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.register-section a {
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.register-section a:hover {
+  text-decoration: underline;
+}
+
+
+.w-full {
+  width: 100% !important;
+}
+
+
+.p-error {
+  color: #ef4444 !important;
+  font-size: 13px;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid #ef4444 !important;
+}
+
+:host ::ng-deep .login-card .p-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 20px 45px rgba(37, 99, 235, 0.25),
+    0 10px 20px rgba(0, 0, 0, 0.08);
+}

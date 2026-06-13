@@ -1,0 +1,102 @@
+<p-toast></p-toast>
+<div class="register-container">
+  <p-card header="Join Us" class="register-card">
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+     
+      <div class="field">
+        <p-floatlabel>
+          <input 
+            pInputText 
+            id="username"
+            formControlName="username" />
+          <label for="username">Username</label>
+        </p-floatlabel>
+
+        @if (registerForm.get('username')?.touched &&
+             registerForm.get('username')?.errors?.['required']) {
+          <small class="error">
+            Username is required
+          </small>
+        }
+      </div>
+
+      <div class="field">
+        <p-floatlabel>
+          <input 
+            pInputText 
+            type="email"
+            id="email"
+            formControlName="email" />
+          <label for="email">Email</label>
+        </p-floatlabel>
+
+        @if (registerForm.get('email')?.touched &&
+             registerForm.get('email')?.errors?.['required']) {
+          <small class="error">
+            Email is required
+          </small>
+        }
+
+        @if (registerForm.get('email')?.touched &&
+             registerForm.get('email')?.errors?.['email']) {
+          <small class="error">
+            Invalid email format
+          </small>
+        }
+      </div>
+
+     
+      <div class="field">
+        <p-floatlabel>
+          <p-password
+  inputId="password"
+  formControlName="password"
+   styleClass="w-full"
+  inputStyleClass="w-full">
+        </p-password>
+          <label for="password">Password</label>
+        </p-floatlabel>
+
+        @if (registerForm.get('password')?.touched &&
+             registerForm.get('password')?.errors?.['required']) {
+          <small class="error">
+            Password is required
+          </small>
+        }
+
+        @if (registerForm.get('password')?.touched &&
+             registerForm.get('password')?.errors?.['pattern']) {
+          <small class="error">
+            Password must contain at least one capital letter,
+            one special character (&#64;$!%*?&),
+            and be at least 8 characters long.
+          </small>
+        }
+      </div>
+
+      <button 
+        pButton 
+        type="submit"
+        label="Register"
+        class="submit-btn"
+        [disabled]="registerForm.invalid">
+      </button>
+<p class="login-text">
+  Already have an account?
+  <a routerLink="/login">Login</a>
+</p>
+    </form>
+
+  </p-card>
+</div>
+
+ <!-- {{ registerForm.get('password')?.errors | json }}  -->
+
+
+<!-- <input 
+            pInputText
+            type="text"
+            id="password"
+            formControlName="password" />-->
